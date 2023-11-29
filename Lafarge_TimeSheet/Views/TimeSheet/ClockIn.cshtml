@@ -1,0 +1,20 @@
+﻿@model TimeEntry
+
+<h2>Clock In</h2>
+
+@using (Html.BeginForm())
+{
+    <p>Welcome, @Model.UserName</p>
+
+    
+
+    <label for="UserName">Enter your username:</label>
+    <input type="text" id="UserName" name="UserName" required />
+
+    @Html.HiddenFor(model => model.UserName)
+    @Html.HiddenFor(model => model.ClockIn)
+
+    <br />
+
+    <input type="submit" value="Clock In" />
+}

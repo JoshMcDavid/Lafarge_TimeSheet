@@ -1,0 +1,39 @@
+﻿@model List<TimeEntry>
+
+<h2>Time Entries</h2>
+
+<table>
+    <tr>
+        <th>UserName</th>
+        <th>Clock In</th>
+        <th>Clock Out</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var entry in Model)
+    {
+        <tr>
+            <td>@entry.UserName</td>
+            <td>@entry.ClockIn.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            <td>@(entry.ClockOut.HasValue ? entry.ClockOut.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Not Clocked Out")</td>
+            <td>
+                @if (!entry.ClockOut.HasValue)
+                {
+                    <a href="@Url.Action("ClockOut", new { id = entry.Id, userName = entry.UserName })">Clock Out</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Clock In", "ClockIn", new { userName = User.Identity.Name })
+</p>
+
+<p>
+    @using (Html.BeginForm("ClockOutFromIndex", "TimeSheet", FormMethod.Post))
+    {
+        <label for="username">Username:</label>
+        <input type="text" name="username" required />
+        <input type="submit" value="Clock Out" />
+    }
+</p>

@@ -1,0 +1,9 @@
+﻿@model TimeEntry
+
+<h2>Clock Out</h2>
+
+@using (Html.BeginForm())
+{
+    <p>Clock in time: @Model.ClockIn</p>
+    <input type="submit" value="Clock Out" />
+}
